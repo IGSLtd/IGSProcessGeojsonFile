@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">MELjXm</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/IGSGeoData</property>
+        <property name="hibernate.connection.username">root</property>-->
+        
+        <!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">5</property>
+
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+       <!--  <property name="hbm2ddl.auto">create</property>  --> <!-- if no table exist, it will create a table -->
+        <property name="hbm2ddl.auto">update</property> <!-- table should exist, it will not create any table -->
+        <property name="show_sql">true</property>
+        
+        <mapping class="com.igs.geodata.process.entity.RockCategory"/>
+        <mapping class="com.igs.geodata.process.entity.Coordinate"/>
+    </session-factory>
+</hibernate-configuration>
