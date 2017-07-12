@@ -1,5 +1,6 @@
 package com.igs.geodata.process;
 
+import com.esri.core.geometry.Point;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.igs.geodata.process.businesslogic.IGSConversionHelper;
 import com.igs.geodata.process.dao.RockCategoryDao;
 import com.igs.geodata.process.entity.Coordinate;
 import com.igs.geodata.process.entity.RockCategoryBuilder;
@@ -26,6 +28,7 @@ import java.util.List;
 public class IGSGeojsonExtractor extends IGSExtractor {
 
     private final Gson gson = new Gson();
+    private IGSConversionHelper conversionHelper = new IGSConversionHelper();
 
     @Override
     public void extractGeojson() {
@@ -162,8 +165,16 @@ public class IGSGeojsonExtractor extends IGSExtractor {
             List l = (ArrayList) list.get(i);
 
             Coordinate c = new Coordinate();
-            c.setxAxis((Double) l.get(0));
-            c.setyAxis((Double) l.get(1));
+            
+            double x = (Double) l.get(0);
+            double y = (Double) l.get(1);
+            Point p = conversionHelper.fromBNGLngLat(new Point(x, y));
+            c.setxAxis(x);
+            c.setyAxis(y);
+            c.setLat(p.getX());
+            c.setLon(p.getY());
+            
+            logger.debug("BNG x=" + x + ", y=" + y + " after conversion lat=" + p.getX() + " long=" + p.getY());
             coordinates.add(c);
         }
 

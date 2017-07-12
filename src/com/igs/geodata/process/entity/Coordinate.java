@@ -28,7 +28,7 @@ public class Coordinate implements Serializable {
     private long coordinateId;
     
     private long categoryId;   
-    private double xAxis, yAxis;
+    private double xAxis, yAxis, lat, lon;
     @ManyToOne
     private RockCategory rockCategory;
 
@@ -76,9 +76,25 @@ public class Coordinate implements Serializable {
         this.yAxis = yAxis;
     }
 
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
     @Override
     public String toString() {
-        return "Coordinate{" + "coordinateId=" + coordinateId + ", categoryId=" + categoryId + ", xAxis=" + xAxis + ", yAxis=" + yAxis + ", rockCategory=" + rockCategory + '}';
+        return "Coordinate{" + "coordinateId=" + coordinateId + ", categoryId=" + categoryId + ", xAxis=" + xAxis + ", yAxis=" + yAxis + ", lat=" + lat + ", lon=" + lon + ", rockCategory=" + rockCategory + '}';
     }
-    
+
 }
